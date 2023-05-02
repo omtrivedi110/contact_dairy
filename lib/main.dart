@@ -1,3 +1,4 @@
+import 'package:contact_dairy/views/screen/contact_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      routes: {
+        'contact_detail': (context) => const contact_detail(),
+      },
       theme: ThemeData(
+        textTheme: TextTheme(
+          displayMedium: TextStyle(
+            color: Colors.red,
+            fontSize: 20,
+          ),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.red,
           foregroundColor: Colors.white,
@@ -27,7 +37,14 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Contact Diary"),
+          centerTitle: true,
+          title: const Text(
+            "Contact Diary",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        body: Center(
+          child: Text("Contact Dairy App"),
         ),
       ),
     );
