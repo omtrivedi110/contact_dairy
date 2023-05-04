@@ -1,7 +1,14 @@
 import 'package:contact_dairy/views/screen/contact_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.red,
+    ),
+  );
   runApp(
     const MyApp(),
   );
@@ -44,7 +51,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         body: Center(
-          child: Text("Contact Dairy App"),
+          child: const Text("Contact Dairy App"),
         ),
       ),
     );
