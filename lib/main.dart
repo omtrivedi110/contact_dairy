@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor: Colors.red,
     ),
   );
@@ -30,13 +30,13 @@ class _MyAppState extends State<MyApp> {
         'contact_detail': (context) => const contact_detail(),
       },
       theme: ThemeData(
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           displayMedium: TextStyle(
             color: Colors.red,
             fontSize: 20,
           ),
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.red,
           foregroundColor: Colors.white,
         ),
@@ -50,8 +50,17 @@ class _MyAppState extends State<MyApp> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: Center(
-          child: const Text("Contact Dairy App"),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Scrollbar(
+            interactive: true,
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) => Slidable(
+                closeOnScroll: true,
+              ),
+            ),
+          ),
         ),
       ),
     );
