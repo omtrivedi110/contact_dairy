@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
 
-class contact_detail extends StatefulWidget {
-  const contact_detail({Key? key}) : super(key: key);
+import '../../utils/globals.dart';
+
+class contacts extends StatefulWidget {
+  const contacts({Key? key}) : super(key: key);
 
   @override
-  State<contact_detail> createState() => _contact_detailState();
+  State<contacts> createState() => _contactsState();
 }
 
-class _contact_detailState extends State<contact_detail> {
+class _contactsState extends State<contacts> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add Contact"),
+      ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 60,
+                child: Text("Add Image"),
+                // foregroundImage: FileImage(Globalvar.),
+              ),
+              FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(Icons.add),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
