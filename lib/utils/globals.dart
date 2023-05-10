@@ -12,3 +12,5 @@ class Globalvar {
     required this.phone,
   }) {}
 }
+
+List allcontact = [];
