@@ -12,3 +12,5 @@ class Globalvar {
       required String? phone,
       File? image}) {}
 }
+
+List allcontact = [];

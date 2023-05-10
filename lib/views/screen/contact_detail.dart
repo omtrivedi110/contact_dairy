@@ -68,6 +68,9 @@ class _contactsState extends State<contacts> {
                         return null;
                       }
                     },
+                    onChanged: (val) {
+                      name = val!;
+                    },
                     decoration: const InputDecoration(
                       hintText: "Enter Name",
                       label: Text("Name"),
@@ -84,6 +87,9 @@ class _contactsState extends State<contacts> {
                       } else {
                         return null;
                       }
+                    },
+                    onChanged: (val) {
+                      email = val!;
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
@@ -102,6 +108,9 @@ class _contactsState extends State<contacts> {
                       } else {
                         return null;
                       }
+                    },
+                    onChanged: (val) {
+                      contact = val!;
                     },
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
