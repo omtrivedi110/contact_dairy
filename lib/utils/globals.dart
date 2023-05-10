@@ -6,9 +6,9 @@ class Globalvar {
   String? phone;
   File? image;
 
-  Globalvar(
-      {required String? name,
-      required String? email,
-      required String? phone,
-      File? image}) {}
+  Globalvar({
+    required this.name,
+    required this.email,
+    required this.phone,
+  }) {}
 }

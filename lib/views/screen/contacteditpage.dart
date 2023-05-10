@@ -7,14 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import '../../utils/globallist.dart';
 import '../../utils/globals.dart';
 
-class contacts extends StatefulWidget {
-  const contacts({Key? key}) : super(key: key);
+class editpage extends StatefulWidget {
+  const editpage({Key? key}) : super(key: key);
 
   @override
-  State<contacts> createState() => _contactsState();
+  State<editpage> createState() => _editpageState();
 }
 
-class _contactsState extends State<contacts> {
+class _editpageState extends State<editpage> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   File? image;
   String? name;
@@ -22,6 +22,7 @@ class _contactsState extends State<contacts> {
   String? contact;
   @override
   Widget build(BuildContext context) {
+    int index = ModalRoute.of(context)!.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -34,14 +35,6 @@ class _contactsState extends State<contacts> {
                   mysnackbar(text: "Successfully Done", color: Colors.green),
                 );
                 Navigator.of(context).pop();
-                print(name);
-                Globallist.allcontact.add(
-                  Globalvar(
-                    name: name!,
-                    email: email!,
-                    phone: contact!,
-                  ),
-                );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   mysnackbar(text: "Not Validated", color: Colors.red),
@@ -67,8 +60,12 @@ class _contactsState extends State<contacts> {
                     children: [
                       CircleAvatar(
                         radius: 60,
-                        foregroundImage:
-                            image != null ? FileImage(image!) : null,
+                        // foregroundImage:
+                        //     Globallist.allcontact[index].image != null
+                        //         ? FileImage(Globallist.allcontact[index].image!)
+                        //         : image != null
+                        //             ? FileImage(image!)
+                        //             : null,
                         child: const Text("Add Image"),
                       ),
                       FloatingActionButton(
@@ -95,8 +92,9 @@ class _contactsState extends State<contacts> {
                       }
                     },
                     onSaved: (val) {
-                      name = val;
+                      Globallist.allcontact[index].name = val;
                     },
+                    initialValue: Globallist.allcontact[index].name,
                     decoration: const InputDecoration(
                       hintText: "Enter Name",
                       label: Text("Name"),
@@ -115,8 +113,9 @@ class _contactsState extends State<contacts> {
                       }
                     },
                     onSaved: (val) {
-                      email = val;
+                      Globallist.allcontact[index].email = val;
                     },
+                    initialValue: Globallist.allcontact[index].email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: "Enter Email",
@@ -138,8 +137,9 @@ class _contactsState extends State<contacts> {
                       }
                     },
                     onSaved: (val) {
-                      contact = val;
+                      Globallist.allcontact[index].phone = val;
                     },
+                    initialValue: Globallist.allcontact[index].phone,
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
