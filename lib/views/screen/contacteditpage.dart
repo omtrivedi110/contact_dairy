@@ -60,12 +60,12 @@ class _editpageState extends State<editpage> {
                     children: [
                       CircleAvatar(
                         radius: 60,
-                        // foregroundImage:
-                        //     Globallist.allcontact[index].image != null
-                        //         ? FileImage(Globallist.allcontact[index].image!)
-                        //         : image != null
-                        //             ? FileImage(image!)
-                        //             : null,
+                        foregroundImage:
+                            Globallist.allcontact[index].image != null
+                                ? FileImage(Globallist.allcontact[index].image!)
+                                : image != null
+                                    ? FileImage(image!)
+                                    : null,
                         child: const Text("Add Image"),
                       ),
                       FloatingActionButton(

@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:contact_dairy/utils/globallist.dart';
+import 'package:contact_dairy/utils/globals.dart';
+import 'package:contact_dairy/views/component/snackbar.dart';
 import 'package:flutter/material.dart';
-
-import '../../utils/globals.dart';
+import 'package:image_picker/image_picker.dart';
 
 class contacts extends StatefulWidget {
   const contacts({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class _contactsState extends State<contacts> {
   String? name;
   String? email;
   String? contact;
-  File? img;
+  File? image;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +27,20 @@ class _contactsState extends State<contacts> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              formkey.currentState!.validate();
+              if (formkey.currentState!.validate()) {
+                formkey.currentState!.save();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  mysnackbar(text: "Successfully Done", color: Colors.green),
+                );
+                Globallist.allcontact.add(Globalvar(
+                    name: name, email: email, phone: contact, image: image));
+                Navigator.of(context).pop();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  mysnackbar(text: "Not Validated", color: Colors.red),
+                );
+              }
             },
             icon: const Icon(Icons.done_outlined),
           )
@@ -45,13 +61,17 @@ class _contactsState extends State<contacts> {
                     children: [
                       CircleAvatar(
                         radius: 60,
-                        foregroundImage: img != null ? FileImage(img!) : null,
+                        foregroundImage:
+                            image != null ? FileImage(image!) : null,
                         child: const Text("Add Image"),
                       ),
                       FloatingActionButton(
                         mini: true,
-                        onPressed: () {
-                          // ImagePicker picker = ImagePicker();
+                        onPressed: () async {
+                          ImagePicker picker = ImagePicker();
+                          XFile? img = await picker.pickImage(
+                              source: ImageSource.camera);
+                          image = File(img!.path);
                         },
                         child: const Icon(Icons.add),
                       )
@@ -67,6 +87,9 @@ class _contactsState extends State<contacts> {
                       } else {
                         return null;
                       }
+                    },
+                    onSaved: (val) {
+                      name = val!;
                     },
                     decoration: const InputDecoration(
                       hintText: "Enter Name",
@@ -85,6 +108,9 @@ class _contactsState extends State<contacts> {
                         return null;
                       }
                     },
+                    onSaved: (val) {
+                      email = val!;
+                    },
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: "Enter Email",
@@ -98,11 +124,17 @@ class _contactsState extends State<contacts> {
                   TextFormField(
                     validator: (val) {
                       if (val!.isEmpty) {
-                        return "Enter The Phone";
+                        return "Enter The Phone Number";
+                      } else if (val.length < 10) {
+                        return "Enter Right Number";
                       } else {
                         return null;
                       }
                     },
+                    onSaved: (val) {
+                      contact = val!;
+                    },
+                    maxLength: 10,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                       hintText: "Enter Contact Number",

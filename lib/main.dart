@@ -1,7 +1,7 @@
 import 'package:contact_dairy/utils/globallist.dart';
-import 'package:contact_dairy/utils/globals.dart';
 import 'package:contact_dairy/utils/image_utils.dart';
 import 'package:contact_dairy/utils/routes_utils.dart';
+import 'package:contact_dairy/views/screen/about_contact.dart';
 import 'package:contact_dairy/views/screen/contact_detail.dart';
 import 'package:contact_dairy/views/screen/contacteditpage.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +10,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   SystemUiOverlayStyle(
-  //     statusBarColor: Colors.red,
-  //   ),
-  // );
   runApp(
     const MyApp(),
   );
@@ -37,12 +31,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // textTheme: const TextTheme(
-        //   displayMedium: TextStyle(
-        //     color: Colors.red,
-        //     fontSize: 20,
-        //   ),
-        // ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.red,
           foregroundColor: Colors.white,
@@ -56,6 +44,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         myroutes.contacts: (context) => const contacts(),
         myroutes.editpage: (context) => const editpage(),
+        myroutes.about: (context) => const about_contact(),
         myroutes.home: (context) => Scaffold(
               appBar: AppBar(
                 actions: [
@@ -121,7 +110,11 @@ class _MyAppState extends State<MyApp> {
                                     backgroundColor: Colors.green,
                                   ),
                                   SlidableAction(
-                                    onPressed: (val) {},
+                                    onPressed: (val) async {
+                                      await Navigator.of(context)
+                                          .pushNamed(myroutes.editpage);
+                                      setState(() {});
+                                    },
                                     icon: Icons.edit,
                                     backgroundColor: Colors.blue,
                                   ),
@@ -169,9 +162,18 @@ class _MyAppState extends State<MyApp> {
                                 ],
                               ),
                               child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      myroutes.about,
+                                      arguments: index);
+                                },
                                 leading: CircleAvatar(
-                                  foregroundImage:
-                                      NetworkImage(images[index % 5]),
+                                  foregroundImage: Globallist
+                                              .allcontact[index].image !=
+                                          null
+                                      ? FileImage(
+                                          Globallist.allcontact[index].image!)
+                                      : null,
                                   child: Text("${index + 1}"),
                                 ),
                                 title: Text(

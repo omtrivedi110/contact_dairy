@@ -10,6 +10,7 @@ class Globalvar {
     required this.name,
     required this.email,
     required this.phone,
+    this.image,
   }) {}
 }
 
